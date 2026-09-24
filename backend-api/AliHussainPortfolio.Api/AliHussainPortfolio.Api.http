@@ -1,0 +1,6 @@
+@AliHussainPortfolio.Api_HostAddress = http://localhost:5095
+
+GET {{AliHussainPortfolio.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

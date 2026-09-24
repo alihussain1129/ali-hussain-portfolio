@@ -1,0 +1,15 @@
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\bin\Debug\net10.0\AliHussainPortfolio.Application.deps.json
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\bin\Debug\net10.0\AliHussainPortfolio.Application.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\bin\Debug\net10.0\AliHussainPortfolio.Application.pdb
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\bin\Debug\net10.0\AliHussainPortfolio.Domain.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\bin\Debug\net10.0\AliHussainPortfolio.Domain.pdb
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\obj\Debug\net10.0\AliHussainPortfolio.Application.csproj.AssemblyReference.cache
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\obj\Debug\net10.0\AliHussainPortfolio.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\obj\Debug\net10.0\AliHussainPortfolio.Application.AssemblyInfoInputs.cache
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\obj\Debug\net10.0\AliHussainPortfolio.Application.AssemblyInfo.cs
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\obj\Debug\net10.0\AliHussainPortfolio.Application.csproj.CoreCompileInputs.cache
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\obj\Debug\net10.0\AliHussa.0E13FC13.Up2Date
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\obj\Debug\net10.0\AliHussainPortfolio.Application.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\obj\Debug\net10.0\refint\AliHussainPortfolio.Application.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\obj\Debug\net10.0\AliHussainPortfolio.Application.pdb
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Application\obj\Debug\net10.0\ref\AliHussainPortfolio.Application.dll

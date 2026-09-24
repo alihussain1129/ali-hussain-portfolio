@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: ali-hussain-portfolio-api
+    runtime: docker
+    dockerfilePath: ./backend-api/Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://0.0.0.0:10000
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: JwtSettings__SecretKey
+        sync: false
+      - key: JwtSettings__Issuer
+        sync: false
+      - key: JwtSettings__Audience
+        sync: false
+      - key: Admin__Email
+        sync: false
+      - key: Admin__Password
+        sync: false
+      - key: Cors__Origins__0
+        sync: false

@@ -1,0 +1,17 @@
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\bin\Debug\net10.0\AliHussainPortfolio.Infrastructure.deps.json
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\bin\Debug\net10.0\AliHussainPortfolio.Infrastructure.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\bin\Debug\net10.0\AliHussainPortfolio.Infrastructure.pdb
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\bin\Debug\net10.0\AliHussainPortfolio.Application.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\bin\Debug\net10.0\AliHussainPortfolio.Domain.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\bin\Debug\net10.0\AliHussainPortfolio.Domain.pdb
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\bin\Debug\net10.0\AliHussainPortfolio.Application.pdb
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\obj\Debug\net10.0\AliHussainPortfolio.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\obj\Debug\net10.0\AliHussainPortfolio.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\obj\Debug\net10.0\AliHussainPortfolio.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\obj\Debug\net10.0\AliHussainPortfolio.Infrastructure.AssemblyInfo.cs
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\obj\Debug\net10.0\AliHussainPortfolio.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\obj\Debug\net10.0\AliHussa.5FA39525.Up2Date
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\obj\Debug\net10.0\AliHussainPortfolio.Infrastructure.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\obj\Debug\net10.0\refint\AliHussainPortfolio.Infrastructure.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\obj\Debug\net10.0\AliHussainPortfolio.Infrastructure.pdb
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Infrastructure\obj\Debug\net10.0\ref\AliHussainPortfolio.Infrastructure.dll

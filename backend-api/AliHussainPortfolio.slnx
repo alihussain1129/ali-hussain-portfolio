@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="AliHussainPortfolio.Api/AliHussainPortfolio.Api.csproj" />
+  <Project Path="AliHussainPortfolio.Application/AliHussainPortfolio.Application.csproj" />
+  <Project Path="AliHussainPortfolio.Domain/AliHussainPortfolio.Domain.csproj" />
+  <Project Path="AliHussainPortfolio.Infrastructure/AliHussainPortfolio.Infrastructure.csproj" />
+</Solution>

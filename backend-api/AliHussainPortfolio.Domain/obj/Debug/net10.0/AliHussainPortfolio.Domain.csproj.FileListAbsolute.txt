@@ -1,0 +1,11 @@
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Domain\bin\Debug\net10.0\AliHussainPortfolio.Domain.deps.json
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Domain\bin\Debug\net10.0\AliHussainPortfolio.Domain.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Domain\bin\Debug\net10.0\AliHussainPortfolio.Domain.pdb
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Domain\obj\Debug\net10.0\AliHussainPortfolio.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Domain\obj\Debug\net10.0\AliHussainPortfolio.Domain.AssemblyInfoInputs.cache
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Domain\obj\Debug\net10.0\AliHussainPortfolio.Domain.AssemblyInfo.cs
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Domain\obj\Debug\net10.0\AliHussainPortfolio.Domain.csproj.CoreCompileInputs.cache
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Domain\obj\Debug\net10.0\AliHussainPortfolio.Domain.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Domain\obj\Debug\net10.0\refint\AliHussainPortfolio.Domain.dll
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Domain\obj\Debug\net10.0\AliHussainPortfolio.Domain.pdb
+C:\Users\alihu\Documents\ali-hussain-portfolio\backend-api\AliHussainPortfolio.Domain\obj\Debug\net10.0\ref\AliHussainPortfolio.Domain.dll
