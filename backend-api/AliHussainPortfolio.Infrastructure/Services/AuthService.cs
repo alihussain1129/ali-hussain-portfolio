@@ -41,6 +41,8 @@ public class AuthService : IAuthService
         }
 
         var role = string.IsNullOrWhiteSpace(user.Role) ? "Admin" : user.Role;
+        var email = user.Email ?? request.Email.Trim();
+        var name = string.IsNullOrWhiteSpace(user.Name) ? email : user.Name;
         var token = GenerateJwtToken(user, role);
 
         return new LoginResultDto
@@ -50,8 +52,8 @@ public class AuthService : IAuthService
             User = new UserSummaryDto
             {
                 Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
+                Name = name,
+                Email = email,
                 Role = role,
             }
         };
@@ -74,10 +76,10 @@ public class AuthService : IAuthService
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.Name),
-            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.Name, user.Name ?? string.Empty),
+            new Claim(ClaimTypes.Email, user.Email ?? string.Empty),
             new Claim(ClaimTypes.Role, role),
         };
 
