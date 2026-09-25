@@ -11,10 +11,10 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? "Server=(localdb)\\mssqllocaldb;Database=AliHussainPortfolioDb;Trusted_Connection=True;MultipleActiveResultSets=true";
+    ?? "Host=localhost;Port=5432;Database=AliHussainPortfolioDb;Username=postgres;Password=postgresres";
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
     {
