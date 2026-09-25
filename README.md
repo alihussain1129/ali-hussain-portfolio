@@ -27,12 +27,7 @@ Open `http://localhost:5173`. The Vite proxy forwards `/api` requests to `http:/
 
 Open `http://localhost:5173/admin`.
 
-The development seed account is:
-
-- Email: `admin@alihussain.dev`
-- Password: `AliHussain@2025!`
-
-Change these values before deployment.
+The development seed account is configured by the API defaults for local use. Set your own `Admin__Email` and `Admin__Password` values before deployment; do not publish production credentials.
 
 The admin area supports course creation, PDF uploads, dashboard counts, and contact-message review/deletion.
 
