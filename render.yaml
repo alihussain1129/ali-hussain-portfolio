@@ -2,6 +2,7 @@ services:
   - type: web
     name: ali-hussain-portfolio-api
     runtime: docker
+    dockerContext: .
     dockerfilePath: ./backend-api/Dockerfile
     healthCheckPath: /health
     envVars:
