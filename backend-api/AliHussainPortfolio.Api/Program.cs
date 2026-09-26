@@ -13,6 +13,70 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Host=localhost;Port=5432;Database=AliHussainPortfolioDb;Username=postgres;Password=postgresres";
 
+var jwtSecret = builder.Configuration["JwtSettings:SecretKey"]
+    ?? Environment.GetEnvironmentVariable("JWT_SECRET")
+    ?? "this-is-a-very-long-development-secret-key-for-local-dev";
+var jwtIssuer = builder.Configuration["JwtSettings:Issuer"] ?? "AliHussainPortfolio";
+var jwtAudience = builder.Configuration["JwtSettings:Audience"] ?? "AliHussainPortfolioClient";
+var migrationConnectionString = builder.Configuration.GetConnectionString("MigrationConnection");
+
+if (builder.Environment.IsProduction())
+{
+    var configuredConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    var configuredMigrationConnectionString = builder.Configuration.GetConnectionString("MigrationConnection");
+    var databaseHost = configuredConnectionString is null
+        ? null
+        : new Npgsql.NpgsqlConnectionStringBuilder(configuredConnectionString).Host;
+    var migrationDatabaseHost = configuredMigrationConnectionString is null
+        ? null
+        : new Npgsql.NpgsqlConnectionStringBuilder(configuredMigrationConnectionString).Host;
+    var corsOrigins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>() ?? [];
+
+    if (string.IsNullOrWhiteSpace(configuredConnectionString)
+        || string.IsNullOrWhiteSpace(databaseHost)
+        || databaseHost.Equals("localhost", StringComparison.OrdinalIgnoreCase)
+        || databaseHost.Equals("127.0.0.1", StringComparison.OrdinalIgnoreCase))
+    {
+        throw new InvalidOperationException("Production requires a non-local PostgreSQL connection string.");
+    }
+
+    if (string.IsNullOrWhiteSpace(migrationDatabaseHost)
+        || migrationDatabaseHost.Equals("localhost", StringComparison.OrdinalIgnoreCase)
+        || migrationDatabaseHost.Equals("127.0.0.1", StringComparison.OrdinalIgnoreCase)
+        || migrationDatabaseHost.Contains("-pooler", StringComparison.OrdinalIgnoreCase))
+    {
+        throw new InvalidOperationException("Production requires a direct, non-pooled PostgreSQL MigrationConnection.");
+    }
+
+    if (string.IsNullOrWhiteSpace(builder.Configuration["JwtSettings:SecretKey"])
+        && string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("JWT_SECRET")))
+    {
+        throw new InvalidOperationException("Production requires JwtSettings:SecretKey or JWT_SECRET.");
+    }
+
+    if (Encoding.UTF8.GetByteCount(jwtSecret) < 32)
+    {
+        throw new InvalidOperationException("The production JWT signing key must be at least 32 bytes.");
+    }
+
+    if (string.IsNullOrWhiteSpace(builder.Configuration["Admin:Email"])
+        || string.IsNullOrWhiteSpace(builder.Configuration["Admin:Password"]))
+    {
+        throw new InvalidOperationException("Production requires Admin:Email and Admin:Password.");
+    }
+
+    if (corsOrigins.Length == 0 || corsOrigins.Any(origin =>
+            !Uri.TryCreate(origin, UriKind.Absolute, out var uri)
+            || uri.Scheme != Uri.UriSchemeHttps
+            || uri.AbsolutePath != "/"
+            || !string.IsNullOrEmpty(uri.Query)
+            || !string.IsNullOrEmpty(uri.Fragment)
+            || !string.IsNullOrEmpty(uri.UserInfo)))
+    {
+        throw new InvalidOperationException("Production requires at least one HTTPS origin in Cors:Origins.");
+    }
+}
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
@@ -27,12 +91,6 @@ builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
     })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
-
-var jwtSecret = builder.Configuration["JwtSettings:SecretKey"]
-    ?? Environment.GetEnvironmentVariable("JWT_SECRET")
-    ?? "this-is-a-very-long-development-secret-key-for-local-dev";
-var jwtIssuer = builder.Configuration["JwtSettings:Issuer"] ?? "AliHussainPortfolio";
-var jwtAudience = builder.Configuration["JwtSettings:Audience"] ?? "AliHussainPortfolioClient";
 
 builder.Services.AddAuthentication(options =>
     {
@@ -88,8 +146,11 @@ using (var scope = app.Services.CreateScope())
     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
     try
     {
-        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        await dbContext.Database.MigrateAsync();
+        var migrationOptions = new DbContextOptionsBuilder<AppDbContext>()
+            .UseNpgsql(migrationConnectionString ?? connectionString)
+            .Options;
+        await using var migrationDbContext = new AppDbContext(migrationOptions);
+        await migrationDbContext.Database.MigrateAsync();
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
         var adminEmail = builder.Configuration["Admin:Email"]
@@ -120,7 +181,7 @@ using (var scope = app.Services.CreateScope())
             }
         }
     }
-    catch (Exception ex)
+    catch (Exception ex) when (!app.Environment.IsProduction())
     {
         logger.LogWarning(ex, "Database was not available during startup; app will continue without migrations/seeding.");
     }
@@ -138,6 +199,12 @@ app.UseCors("Frontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
+app.MapGet("/health", async (AppDbContext dbContext, CancellationToken cancellationToken) =>
+{
+    var databaseAvailable = await dbContext.Database.CanConnectAsync(cancellationToken);
+    return databaseAvailable
+        ? Results.Ok(new { status = "ok" })
+        : Results.StatusCode(StatusCodes.Status503ServiceUnavailable);
+});
 
 app.Run();
