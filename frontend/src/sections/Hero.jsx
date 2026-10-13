@@ -36,18 +36,62 @@ export default function Hero() {
         </div>
 
         <div className="hero-visual">
-          <div className="hero-art" role="img" aria-label="A visual introduction to Ali's software practice">
-            <div className="hero-art-topline">
-              <span>ALI HUSSAIN</span>
-              <span>SOFTWARE / 01</span>
+          <div className="hero-art" role="img" aria-label="A preview of a software product interface designed by Ali">
+            <div className="studio-window">
+              <div className="studio-toolbar">
+                <div className="studio-brand">
+                  <span className="studio-brand-mark">d</span>
+                  <span>devora studio</span>
+                </div>
+                <div className="studio-window-controls" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <span className="studio-live"><span />LIVE PREVIEW</span>
+              </div>
+              <div className="studio-workspace">
+                <aside className="studio-sidebar" aria-hidden="true">
+                  <span className="studio-sidebar-active" />
+                  <span />
+                  <span />
+                  <span />
+                  <span className="studio-sidebar-bottom" />
+                </aside>
+                <div className="studio-canvas">
+                  <div className="studio-greeting">
+                    <div>
+                      <span className="studio-overline">DEVORA / WORKSPACE</span>
+                      <strong>Software, thoughtfully built.</strong>
+                    </div>
+                    <span className="studio-avatar">A</span>
+                  </div>
+                  <div className="studio-metrics">
+                    <div><span>Projects</span><strong>{String(site.projects.length).padStart(2, '0')}</strong><i>Selected work</i></div>
+                    <div><span>Services</span><strong>{String(site.services.length).padStart(2, '0')}</strong><i>Design + engineering</i></div>
+                    <div><span>Courses</span><strong>{String(site.courses.length).padStart(2, '0')}</strong><i>Learning resources</i></div>
+                  </div>
+                  <div className="studio-project">
+                    <div className="studio-project-heading">
+                      <div><span className="studio-overline">CURRENT FOCUS</span><strong>Product, thoughtfully built.</strong></div>
+                      <span className="studio-project-status">IN PROGRESS</span>
+                    </div>
+                    <div className="studio-project-preview" aria-hidden="true">
+                      <div className="studio-preview-nav"><span /><span /><span /><span /></div>
+                      <div className="studio-preview-content">
+                        <span className="studio-preview-kicker">A clearer way forward</span>
+                        <span className="studio-preview-title">Made for the work<br />that matters.</span>
+                        <span className="studio-preview-button" />
+                        <span className="studio-preview-art"><span /><span /><span /></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="hero-art-grid" aria-hidden="true" />
-            <div className="hero-art-monogram" aria-hidden="true">AH</div>
-            <div className="hero-art-stamp" aria-hidden="true">BUILT<br />WITH<br />INTENT</div>
             <div className="hero-art-bottomline">
-              <span>From first sketch</span>
-              <span aria-hidden="true">→</span>
-              <span>to the final detail</span>
+              <span>Designed with purpose</span>
+              <span>Built to last</span>
             </div>
           </div>
           <p className="hero-visual-note">Curiosity in the details.<br />Care in the systems.</p>
