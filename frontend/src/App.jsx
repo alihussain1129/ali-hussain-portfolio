@@ -8,6 +8,7 @@ import Projects from './sections/Projects.jsx'
 import { site } from './config/site.js'
 import AdminPage from './pages/AdminPage.jsx'
 import { useCourses } from './hooks/useCourses.js'
+import { useServices } from './hooks/useServices.js'
 import { apiUrl } from './config/api.js'
 
 function ScrollToTop() {
@@ -32,6 +33,7 @@ function PageIntro({ eyebrow, title, description }) {
 
 function HomePage() {
   const { courses } = useCourses()
+  const { services, error: servicesError } = useServices()
   const previewCourses = courses.slice(0, 3)
 
   return (
@@ -40,7 +42,7 @@ function HomePage() {
 
       <section className="trust-strip" aria-label="Portfolio highlights">
         <div className="container trust-grid">
-          {site.services.slice(0, 4).map((service, index) => (
+          {services.slice(0, 4).map((service, index) => (
             <div key={service.title}>
               <span className="service-index">0{index + 1}</span>
               <strong>{service.title.replace(' Development', '')}</strong>
@@ -58,8 +60,9 @@ function HomePage() {
             <span className="eyebrow eyebrow-dark">What I do</span>
             <h2>Practical software solutions for real business needs.</h2>
           </div>
+          {servicesError && <p className="status status-error" role="alert">Couldn&apos;t load live services. Showing the saved portfolio snapshot.</p>}
           <div className="card-grid three-up">
-            {site.services.map((service) => (
+            {services.map((service) => (
               <article className="feature-card" key={service.title}>
                 <div className="feature-icon">✦</div>
                 <h3>{service.title}</h3>
@@ -191,6 +194,8 @@ function AboutPage() {
 }
 
 function ServicesPage() {
+  const { services, error } = useServices()
+
   return (
     <div className="page-container">
       <PageIntro
@@ -200,8 +205,9 @@ function ServicesPage() {
       />
       <section className="section section-surface">
         <div className="container">
+          {error && <p className="status status-error" role="alert">Couldn&apos;t load live services. Showing the saved portfolio snapshot.</p>}
           <div className="card-grid three-up">
-            {site.services.map((service) => (
+            {services.map((service) => (
               <article className="feature-card" key={service.title}>
                 <div className="feature-icon">✦</div>
                 <h3>{service.title}</h3>

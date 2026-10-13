@@ -74,10 +74,16 @@ public class ProjectService : IProjectService
             throw new InvalidOperationException("Project title is required.");
         }
 
+        var slug = CreateSlug(string.IsNullOrWhiteSpace(request.Slug) ? request.Title : request.Slug);
+        if (await _dbContext.Projects.AnyAsync(project => project.Slug == slug, cancellationToken))
+        {
+            throw new InvalidOperationException("A project with this slug already exists.");
+        }
+
         var entity = new Project
         {
             Title = request.Title.Trim(),
-            Slug = CreateSlug(request.Title),
+            Slug = slug,
             ShortDescription = request.ShortDescription ?? string.Empty,
             Description = request.Description ?? string.Empty,
             Category = request.Category ?? string.Empty,
@@ -91,7 +97,7 @@ public class ProjectService : IProjectService
 
         entity.Technologies = (request.Technologies ?? new List<string>())
             .Where(t => !string.IsNullOrWhiteSpace(t))
-            .Select((t, index) => new ProjectTechnology { TechnologyName = t.Trim(), Project = entity, Id = index + 1 })
+            .Select(t => new ProjectTechnology { TechnologyName = t.Trim(), Project = entity })
             .ToList();
 
         entity.Images = (request.ImageUrls ?? new List<string>())

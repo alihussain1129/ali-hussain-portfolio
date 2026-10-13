@@ -37,6 +37,7 @@ public class ProjectDetailDto
 public class CreateProjectDto
 {
     public string Title { get; set; } = string.Empty;
+    public string? Slug { get; set; }
     public string ShortDescription { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public string Category { get; set; } = string.Empty;
