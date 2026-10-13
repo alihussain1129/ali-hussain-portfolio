@@ -1,7 +1,8 @@
 using AliHussainPortfolio.Application.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace AliHussainPortfolio.Infrastructure.Services;
 
@@ -9,13 +10,32 @@ public class LocalFileStorageService : IFileStorageService
 {
     private readonly string _rootPath;
 
-    public LocalFileStorageService(IWebHostEnvironment environment, IConfiguration configuration)
+    public LocalFileStorageService(
+        IWebHostEnvironment environment,
+        IConfiguration configuration,
+        ILogger<LocalFileStorageService> logger)
     {
         var configuredRoot = configuration["FileStorage:RootPath"];
         _rootPath = Path.GetFullPath(string.IsNullOrWhiteSpace(configuredRoot)
             ? Path.Combine(environment.ContentRootPath, "App_Data", "uploads")
             : configuredRoot);
         Directory.CreateDirectory(_rootPath);
+
+        var legacyRoot = Path.GetFullPath(Path.Combine(
+            environment.WebRootPath ?? Path.Combine(environment.ContentRootPath, "wwwroot"),
+            "uploads"));
+        var pathComparison = OperatingSystem.IsWindows()
+            ? StringComparison.OrdinalIgnoreCase
+            : StringComparison.Ordinal;
+
+        if (!string.Equals(_rootPath, legacyRoot, pathComparison))
+        {
+            var migratedFiles = MigrateLegacyUploads(legacyRoot);
+            if (migratedFiles > 0)
+            {
+                logger.LogInformation("Migrated {FileCount} legacy uploads to the configured storage directory.", migratedFiles);
+            }
+        }
     }
 
     public async Task<string> SaveAsync(IFormFile file, string? folder = null, CancellationToken cancellationToken = default)
@@ -103,5 +123,29 @@ public class LocalFileStorageService : IFileStorageService
         }
 
         return path;
+    }
+
+    private int MigrateLegacyUploads(string legacyRoot)
+    {
+        if (!Directory.Exists(legacyRoot))
+        {
+            return 0;
+        }
+
+        var files = Directory.EnumerateFiles(legacyRoot, "*", SearchOption.AllDirectories).ToArray();
+        foreach (var legacyPath in files)
+        {
+            var storageKey = Path.GetRelativePath(legacyRoot, legacyPath).Replace('\\', '/');
+            var persistentPath = ResolveStoragePath(storageKey);
+            if (File.Exists(persistentPath))
+            {
+                throw new IOException("A legacy upload conflicts with an existing persistent file.");
+            }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(persistentPath) ?? _rootPath);
+            File.Move(legacyPath, persistentPath);
+        }
+
+        return files.Length;
     }
 }

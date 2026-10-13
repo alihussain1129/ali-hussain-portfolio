@@ -94,7 +94,7 @@ In the GitHub repository:
 ### Deployment caveats
 
 - On Azure App Service, PDF uploads use `FileStorage__RootPath` under `/home` (for example `/home/data/portfolio-uploads`). Files in `/home` persist across restarts and deployments; the F1 plan's storage quota is shared with the app, so monitor usage and move to object storage if uploads grow.
-- Uploaded PDFs are not placed under the publicly served `wwwroot`; public access goes through the resource API, which checks whether a resource is published.
+- Uploaded PDFs are stored outside the publicly served `wwwroot`; legacy uploads are moved to the configured directory at startup, and public access goes through the resource API, which checks whether a resource is published.
 - F1 is a free, quota-limited tier and is not a production-supported SLA plan. Upgrade only after checking the exact regional price and student credit remaining.
 - The Azure wizard may show a randomized secure hostname. Use the actual hostname shown after creation for the issuer, frontend `VITE_API_URL`, and health check.
 - Never put Neon connection strings, JWT secrets, admin passwords, or publish-profile XML in source files or commit them to GitHub.

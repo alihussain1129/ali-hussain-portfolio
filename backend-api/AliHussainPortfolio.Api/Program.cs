@@ -157,6 +157,7 @@ using (var scope = app.Services.CreateScope())
             .Options;
         await using var migrationDbContext = new AppDbContext(migrationOptions);
         await migrationDbContext.Database.MigrateAsync();
+        scope.ServiceProvider.GetRequiredService<IFileStorageService>();
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
         var adminEmail = builder.Configuration["Admin:Email"]
@@ -199,6 +200,16 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/uploads", StringComparison.OrdinalIgnoreCase))
+    {
+        context.Response.StatusCode = StatusCodes.Status404NotFound;
+        return;
+    }
+
+    await next();
+});
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors("Frontend");
