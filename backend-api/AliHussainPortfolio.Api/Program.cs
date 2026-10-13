@@ -75,6 +75,12 @@ if (builder.Environment.IsProduction())
     {
         throw new InvalidOperationException("Production requires at least one HTTPS origin in Cors:Origins.");
     }
+
+    var fileStorageRoot = builder.Configuration["FileStorage:RootPath"];
+    if (string.IsNullOrWhiteSpace(fileStorageRoot) || !Path.IsPathFullyQualified(fileStorageRoot))
+    {
+        throw new InvalidOperationException("Production requires an absolute FileStorage:RootPath on persistent storage.");
+    }
 }
 
 builder.Services.AddDbContext<AppDbContext>(options =>

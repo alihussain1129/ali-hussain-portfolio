@@ -259,7 +259,7 @@ public class ResourceService : IResourceService
             IsPublished = resource.IsPublished,
             CreatedAt = resource.CreatedAt,
             UpdatedAt = resource.UpdatedAt,
-            PublicUrl = $"/uploads/{resource.StorageKey.Replace('\\', '/')}"
+            PublicUrl = $"/api/resources/{resource.Id}/view"
         };
     }
 }

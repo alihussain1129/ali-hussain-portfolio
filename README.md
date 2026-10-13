@@ -62,6 +62,8 @@ JwtSettings__Audience=<frontend HTTPS origin>
 Admin__Email=<your admin email>
 Admin__Password=<a strong, unique admin password>
 Cors__Origins__0=<frontend HTTPS origin>
+FileStorage__RootPath=/home/data/portfolio-uploads
+WEBSITE_ENABLE_APP_SERVICE_STORAGE=true
 ```
 
 Use the .NET/Npgsql connection string format from Neon (`Host=...;Port=5432;Database=...;Username=...;Password=...;SSL Mode=VerifyFull;Channel Binding=Require`). Use Neon's pooled URL for `DefaultConnection` and the direct URL without `-pooler` for `MigrationConnection`. The API applies EF Core migrations at startup using the direct connection. Never paste either URL or any secret into chat or GitHub files.
@@ -91,7 +93,8 @@ In the GitHub repository:
 
 ### Deployment caveats
 
-- The API currently stores uploaded PDFs on the app's local filesystem. Do not rely on production PDF uploads until durable object storage is configured.
+- On Azure App Service, PDF uploads use `FileStorage__RootPath` under `/home` (for example `/home/data/portfolio-uploads`). Files in `/home` persist across restarts and deployments; the F1 plan's storage quota is shared with the app, so monitor usage and move to object storage if uploads grow.
+- Uploaded PDFs are not placed under the publicly served `wwwroot`; public access goes through the resource API, which checks whether a resource is published.
 - F1 is a free, quota-limited tier and is not a production-supported SLA plan. Upgrade only after checking the exact regional price and student credit remaining.
 - The Azure wizard may show a randomized secure hostname. Use the actual hostname shown after creation for the issuer, frontend `VITE_API_URL`, and health check.
 - Never put Neon connection strings, JWT secrets, admin passwords, or publish-profile XML in source files or commit them to GitHub.

@@ -1,4 +1,5 @@
 using AliHussainPortfolio.Application.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
@@ -6,13 +7,14 @@ namespace AliHussainPortfolio.Infrastructure.Services;
 
 public class LocalFileStorageService : IFileStorageService
 {
-    private readonly IWebHostEnvironment _environment;
     private readonly string _rootPath;
 
-    public LocalFileStorageService(IWebHostEnvironment environment)
+    public LocalFileStorageService(IWebHostEnvironment environment, IConfiguration configuration)
     {
-        _environment = environment;
-        _rootPath = Path.Combine(environment.WebRootPath ?? Path.Combine(environment.ContentRootPath, "wwwroot"), "uploads");
+        var configuredRoot = configuration["FileStorage:RootPath"];
+        _rootPath = Path.GetFullPath(string.IsNullOrWhiteSpace(configuredRoot)
+            ? Path.Combine(environment.ContentRootPath, "App_Data", "uploads")
+            : configuredRoot);
         Directory.CreateDirectory(_rootPath);
     }
 
@@ -35,15 +37,12 @@ public class LocalFileStorageService : IFileStorageService
             throw new InvalidOperationException("The file must have a PDF content type.");
         }
 
-        var targetDirectory = string.IsNullOrWhiteSpace(folder)
-            ? _rootPath
-            : Path.Combine(_rootPath, folder);
-
-        Directory.CreateDirectory(targetDirectory);
-
         var safeName = Guid.NewGuid().ToString("N") + extension;
-        var storageKey = Path.Combine(folder ?? string.Empty, safeName).Replace('\\', '/');
-        var fullPath = Path.Combine(_rootPath, storageKey.Replace('/', Path.DirectorySeparatorChar));
+        var normalizedFolder = string.IsNullOrWhiteSpace(folder)
+            ? string.Empty
+            : $"{folder.Trim('/', '\\').Replace('\\', '/')}/";
+        var storageKey = normalizedFolder + safeName;
+        var fullPath = ResolveStoragePath(storageKey);
         Directory.CreateDirectory(Path.GetDirectoryName(fullPath) ?? _rootPath);
 
         await using var stream = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.None);
@@ -59,8 +58,7 @@ public class LocalFileStorageService : IFileStorageService
             return Task.CompletedTask;
         }
 
-        var normalized = storageKey.Replace('/', Path.DirectorySeparatorChar).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        var path = Path.Combine(_rootPath, normalized);
+        var path = ResolveStoragePath(storageKey);
 
         if (File.Exists(path))
         {
@@ -77,8 +75,7 @@ public class LocalFileStorageService : IFileStorageService
             throw new FileNotFoundException("Storage key is empty.");
         }
 
-        var normalized = storageKey.Replace('/', Path.DirectorySeparatorChar).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        var path = Path.Combine(_rootPath, normalized);
+        var path = ResolveStoragePath(storageKey);
 
         if (!File.Exists(path))
         {
@@ -88,13 +85,23 @@ public class LocalFileStorageService : IFileStorageService
         return Task.FromResult<Stream>(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read));
     }
 
-    public Task<string> GetPublicUrlAsync(string storageKey, CancellationToken cancellationToken = default)
+    private string ResolveStoragePath(string storageKey)
     {
         if (string.IsNullOrWhiteSpace(storageKey))
         {
-            return Task.FromResult(string.Empty);
+            throw new InvalidOperationException("A storage key is required.");
         }
 
-        return Task.FromResult($"/uploads/{storageKey.Replace('\\', '/')}");
+        var normalized = storageKey.Replace('\\', '/').Trim('/');
+        var path = Path.GetFullPath(Path.Combine(_rootPath, normalized.Replace('/', Path.DirectorySeparatorChar)));
+        var relativePath = Path.GetRelativePath(_rootPath, path);
+        if (Path.IsPathRooted(relativePath)
+            || relativePath == ".."
+            || relativePath.StartsWith($"..{Path.DirectorySeparatorChar}", StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException("The storage key is outside the configured storage directory.");
+        }
+
+        return path;
     }
 }
