@@ -9,7 +9,7 @@ function normalizeProject(project) {
     ...project,
     summary: project.summary || project.shortDescription || '',
     techStack: project.techStack || (project.technologies || []).join(', '),
-    link: project.link || project.githubUrl || '',
+    link: project.link || project.githubUrl || project.gitHubUrl || '',
     liveUrl: project.liveUrl || project.liveDemoUrl || '',
   }
 }
@@ -25,7 +25,17 @@ export function useProjects() {
         if (!res.ok) throw new Error(`Request failed (${res.status})`)
         return res.json()
       })
-      .then((projects) => setState({ projects: projects.map(normalizeProject), loading: false, error: null }))
+      .then((projects) => {
+        const liveProjects = projects.map(normalizeProject)
+        const liveSlugs = new Set(liveProjects.map((project) => project.slug))
+        const localProjects = fallbackProjects.filter((project) => !liveSlugs.has(project.slug))
+
+        setState({
+          projects: [...liveProjects, ...localProjects],
+          loading: false,
+          error: null,
+        })
+      })
       .catch((err) => {
         if (err.name !== 'AbortError') {
           setState({ projects: fallbackProjects, loading: false, error: err.message })

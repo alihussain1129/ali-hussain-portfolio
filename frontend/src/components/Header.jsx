@@ -17,7 +17,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="nav-toggle"
+          className={`nav-toggle ${menuOpen ? 'is-open' : ''}`}
           aria-expanded={menuOpen}
           aria-label="Toggle navigation"
           onClick={() => setMenuOpen((current) => !current)}

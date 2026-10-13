@@ -72,6 +72,17 @@ export const site = {
       link: 'https://github.com/alihussain1129/EmployeeManagementSystem',
       liveUrl: 'https://github.com/alihussain1129/EmployeeManagementSystem',
     },
+    {
+      id: 2,
+      slug: 'matrixscan',
+      title: 'Exalted Scanner',
+      summary:
+        'A privacy-first QR, Data Matrix, and multi-format barcode scanner for Android and the browser, with camera and image decoding processed locally on-device.',
+      techStack: 'Flutter, Dart, C++, JavaScript, ZXing, QR, Data Matrix',
+      isFeatured: false,
+      link: 'https://github.com/alihussain1129/matrixscan',
+      liveUrl: 'https://alihussain1129.github.io/matrixscan/',
+    },
   ],
   courses: [
     {

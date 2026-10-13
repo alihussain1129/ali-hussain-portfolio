@@ -7,17 +7,20 @@ export default function Hero() {
     <section className="hero" id="top">
       <div className="container hero-grid">
         <div className="hero-copy">
-          <p className="eyebrow">FULL-STACK DEVELOPER</p>
-          <h1>{site.headline}</h1>
-          <p className="hero-signature">I&apos;m {site.name}, a Computer Science student and developer.</p>
+          <p className="eyebrow"><span className="availability-dot" /> FULL-STACK DEVELOPER</p>
+          <h1>
+            Software with
+            <span> a human side.</span>
+          </h1>
+          <p className="hero-signature">I&apos;m {site.name} — a Computer Science student and developer.</p>
           <p className="lead">{site.tagline}</p>
 
           <div className="hero-actions">
             <Link className="btn btn-primary" to="/projects">
-              Start a project
+              Explore my work <span aria-hidden="true">↗</span>
             </Link>
             <Link className="btn btn-ghost" to="/contact">
-              Explore my work
+              Let&apos;s talk
             </Link>
           </div>
 
@@ -32,20 +35,22 @@ export default function Hero() {
           <SocialLinks variant="icons" />
         </div>
 
-        <div className="hero-visual" aria-hidden="true">
-          <div className="visual-label">Engineering with intent <span>●</span></div>
-          <div className="hero-art">
-            <div className="art-orbit art-orbit-one" />
-            <div className="art-orbit art-orbit-two" />
-            <div className="art-core">
-              <span className="art-core-mark">AH</span>
-              <span className="art-core-label">DIGITAL<br />SYSTEMS</span>
+        <div className="hero-visual">
+          <div className="hero-art" role="img" aria-label="A visual introduction to Ali's software practice">
+            <div className="hero-art-topline">
+              <span>ALI HUSSAIN</span>
+              <span>SOFTWARE / 01</span>
             </div>
-            <span className="art-node art-node-one">C#</span>
-            <span className="art-node art-node-two">UI</span>
-            <span className="art-node art-node-three">DB</span>
-            <span className="art-node art-node-four">API</span>
+            <div className="hero-art-grid" aria-hidden="true" />
+            <div className="hero-art-monogram" aria-hidden="true">AH</div>
+            <div className="hero-art-stamp" aria-hidden="true">BUILT<br />WITH<br />INTENT</div>
+            <div className="hero-art-bottomline">
+              <span>From first sketch</span>
+              <span aria-hidden="true">→</span>
+              <span>to the final detail</span>
+            </div>
           </div>
+          <p className="hero-visual-note">Curiosity in the details.<br />Care in the systems.</p>
         </div>
       </div>
     </section>

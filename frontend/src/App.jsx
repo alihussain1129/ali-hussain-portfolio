@@ -492,13 +492,15 @@ function NotFoundPage() {
 }
 
 function AppLayout() {
+  const { pathname } = useLocation()
+
   return (
     <>
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
       <Header />
-      <main id="main-content">
+      <main id="main-content" className="page-transition" key={pathname}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
