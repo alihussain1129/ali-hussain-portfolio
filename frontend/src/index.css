@@ -944,8 +944,7 @@ h4 {
 .login-card,
 .card {
   position: relative;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
+  background: #fff;
   border: 1px solid var(--line);
   border-radius: 16px;
   box-shadow: var(--shadow);
@@ -1536,7 +1535,7 @@ h3,
   background: rgba(246, 242, 233, 0.96);
   border-bottom: 1px solid var(--line);
   box-shadow: 0 5px 22px rgba(50, 36, 29, 0.04);
-  backdrop-filter: blur(16px);
+  backdrop-filter: none;
 }
 
 .header-inner {
@@ -2713,27 +2712,6 @@ h3,
   animation: stampTurn 18s linear infinite;
 }
 
-.section-heading,
-.about-grid > *,
-.trust-grid > *,
-.feature-card,
-.course-card,
-.project-card,
-.cta-box,
-.content-card,
-.detail-card,
-.info-panel,
-.page-intro,
-.login-card,
-.admin-heading,
-.admin-stats > *,
-.admin-grid > *,
-.admin-messages,
-.admin-message,
-.tag-cloud > .tag {
-  will-change: opacity, translate;
-}
-
 @supports (animation-timeline: view()) {
   .section-heading,
   .about-grid > *,
@@ -2857,10 +2835,10 @@ h3,
 
 @keyframes gridDrift {
   from {
-    background-position: 0 0, 0 0;
+    transform: translate3d(0, 0, 0);
   }
   to {
-    background-position: 48px 24px, 24px 48px;
+    transform: translate3d(24px, 24px, 0);
   }
 }
 
@@ -2882,35 +2860,4 @@ h3,
     animation: none !important;
   }
 
-  .section-heading,
-  .about-grid > *,
-  .feature-card,
-  .course-card,
-  .project-card,
-  .cta-box,
-  .content-card,
-  .detail-card,
-  .info-panel,
-  .page-intro,
-  .login-card,
-  .admin-heading,
-  .admin-stats > *,
-  .admin-grid > *,
-  .admin-messages,
-  .admin-message,
-  .tag-cloud > .tag {
-    will-change: auto;
-  }
-
-  .page-intro,
-  .login-card,
-  .admin-heading,
-  .admin-stats > *,
-  .admin-grid > *,
-  .admin-messages,
-  .admin-message,
-  .tag-cloud > .tag,
-  .trust-grid > * {
-    will-change: auto;
-  }
 }
