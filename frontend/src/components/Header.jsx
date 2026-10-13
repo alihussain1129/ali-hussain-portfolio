@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Link to="/" className="brand" aria-label="Ali Hussain home">
+        <Link to="/" className="brand" aria-label="Devora home">
           <img className="brand-mark" src="/favicon.svg" alt="" />
           <span className="brand-name">{site.name}</span>
         </Link>

@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="container footer-inner">
         <p>
-          © {new Date().getFullYear()} {site.name}
+          © {new Date().getFullYear()} {site.name} · by Ali Hussain
         </p>
         <SocialLinks variant="icons" />
       </div>

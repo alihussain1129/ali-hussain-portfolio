@@ -1,5 +1,5 @@
 export const site = {
-  name: 'Ali Hussain',
+  name: 'Devora',
   role: 'Full-Stack Developer | C# / .NET Developer',
   headline: 'Building Reliable Software From Database to User Interface.',
   tagline:

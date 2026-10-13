@@ -12,7 +12,7 @@ export default function Hero() {
             Software with
             <span> a human side.</span>
           </h1>
-          <p className="hero-signature">I&apos;m {site.name} — a Computer Science student and developer.</p>
+          <p className="hero-signature">I&apos;m Ali Hussain — a Computer Science student and developer.</p>
           <p className="lead">{site.tagline}</p>
 
           <div className="hero-actions">
