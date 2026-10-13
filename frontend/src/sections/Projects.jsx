@@ -7,7 +7,7 @@ export default function Projects({ limit }) {
 
   return (
     <>
-      {loading && <p className="status">Loading projects…</p>}
+      {loading && visibleProjects.length === 0 && <p className="status">Loading projects…</p>}
       {error && (
         <p className="status status-error" role="alert">
           Couldn&apos;t load projects ({error}). Using the local project snapshot.

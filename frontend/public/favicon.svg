@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ali Hussain AH mark">
   <defs>
     <linearGradient id="brand-gradient" x1="8" y1="6" x2="58" y2="60" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#671522"/>
-      <stop offset=".52" stop-color="#a51f32"/>
-      <stop offset="1" stop-color="#d9ae5f"/>
+      <stop stop-color="#563b69"/>
+      <stop offset=".52" stop-color="#79568f"/>
+      <stop offset="1" stop-color="#d8ea52"/>
     </linearGradient>
   </defs>
   <rect width="64" height="64" rx="18" fill="url(#brand-gradient)"/>

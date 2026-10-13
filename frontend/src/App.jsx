@@ -289,7 +289,7 @@ function CoursesPage() {
       />
       <section className="section section-surface">
         <div className="container">
-          {loading && <p className="status">Loading courses…</p>}
+          {loading && courses.length === 0 && <p className="status">Loading courses…</p>}
           {error && <p className="status status-error" role="alert">Couldn&apos;t load live courses ({error}); showing the local snapshot.</p>}
           <div className="card-grid three-up">
             {courses.map((course) => (
