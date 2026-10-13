@@ -1124,7 +1124,7 @@ h4 {
 .grid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
 }
 
 .project-card {
@@ -2715,26 +2715,44 @@ h3,
 
 .section-heading,
 .about-grid > *,
+.trust-grid > *,
 .feature-card,
 .course-card,
 .project-card,
 .cta-box,
 .content-card,
 .detail-card,
-.info-panel {
-  will-change: opacity;
+.info-panel,
+.page-intro,
+.login-card,
+.admin-heading,
+.admin-stats > *,
+.admin-grid > *,
+.admin-messages,
+.admin-message,
+.tag-cloud > .tag {
+  will-change: opacity, translate;
 }
 
 @supports (animation-timeline: view()) {
   .section-heading,
   .about-grid > *,
+  .trust-grid > *,
   .feature-card,
   .course-card,
   .project-card,
   .cta-box,
   .content-card,
   .detail-card,
-  .info-panel {
+  .info-panel,
+  .page-intro,
+  .login-card,
+  .admin-heading,
+  .admin-stats > *,
+  .admin-grid > *,
+  .admin-messages,
+  .admin-message,
+  .tag-cloud > .tag {
     animation: scrollReveal linear both;
     animation-timeline: view();
     animation-range: entry 0% cover 28%;
@@ -2796,22 +2814,22 @@ h3,
 @keyframes scrollReveal {
   from {
     opacity: 0.55;
-    transform: translateY(20px);
+    translate: 0 20px;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    translate: 0 0;
   }
 }
 
 @keyframes scrollRevealFromTop {
   from {
     opacity: 0.55;
-    transform: translateY(-20px);
+    translate: 0 -20px;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    translate: 0 0;
   }
 }
 
@@ -2881,6 +2899,18 @@ h3,
   .admin-messages,
   .admin-message,
   .tag-cloud > .tag {
+    will-change: auto;
+  }
+
+  .page-intro,
+  .login-card,
+  .admin-heading,
+  .admin-stats > *,
+  .admin-grid > *,
+  .admin-messages,
+  .admin-message,
+  .tag-cloud > .tag,
+  .trust-grid > * {
     will-change: auto;
   }
 }

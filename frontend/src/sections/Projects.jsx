@@ -18,7 +18,7 @@ export default function Projects({ limit }) {
       )}
 
       <div className="grid">
-        {visibleProjects.map((project) => {
+        {visibleProjects.map((project, index) => {
           const sourceUrl = project.link || project.githubUrl || project.gitHubUrl
           const liveUrl = project.liveUrl || project.liveDemoUrl
 
@@ -27,7 +27,7 @@ export default function Projects({ limit }) {
               {project.isFeatured && <span className="badge">Featured</span>}
               <div className="project-mark" aria-hidden="true">
                 <span>{project.title.slice(0, 1)}</span>
-                <small>CASE STUDY / 01</small>
+                <small>CASE STUDY / {String(index + 1).padStart(2, '0')}</small>
               </div>
               <h3>{project.title}</h3>
               <p>{project.summary}</p>
